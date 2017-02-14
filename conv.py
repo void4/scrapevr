@@ -1,9 +1,10 @@
+# Converts the scrapy out.json to the out.gexf format
 import json
 
 inp = ""
 with open("out.json") as out:
     inp = out.read()
-print(inp)
+
 js = json.loads(inp)
 
 from lxml import etree
@@ -12,7 +13,7 @@ from lxml import etree
 root = etree.Element('gexf')
 graph = etree.Element('graph', attrib={"mode":"static", "defaultedgetype":"directed"})
 root.append(graph)
-# another child with text
+
 nodes = etree.Element('nodes')
 edges = etree.Element('edges')
 
@@ -34,7 +35,7 @@ for n in js:
 
 # pretty string
 s = etree.tostring(root, pretty_print=True)
-print s
+print(s)
 
 with open("out.gexf", "w+") as gexf:
     gexf.write(s)
